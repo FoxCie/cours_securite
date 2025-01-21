@@ -1,8 +1,8 @@
-FROM debian AS my_insecure_app
+FROM alpine AS my_insecure_app
 
-RUN adduser user
+RUN echo -e 'test\ntest' | adduser user
 
-RUN apt update && apt install build-essential make -y
+RUN apk add make gcc musl-dev
 
 USER user
 
