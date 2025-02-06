@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - 4051:80
+      - 4043:443
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: MySuperStrongPassword
+      POSTGRES_DB: sqlidb
+    volumes:
+      - ./init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+
