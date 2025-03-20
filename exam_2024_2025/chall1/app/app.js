@@ -39,8 +39,29 @@ app.get('/signup', csrfProtection, (req, res) => {
     res.render('signup', {csrfToken: req.csrfToken(), msg:""});
 })
 
-app.post('/signup', csrfProtection, (req, res) => {
+app.post('/signup', csrfProtection, async (req, res) => {
     const { username, password } = req.body;
+
+    const queryCheck = `SELECT * FROM Users WHERE username = ?`;
+
+    try {
+        const rows = await new Promise((resolve, reject) => {
+            db.all(queryCheck, username, (error, rows) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(rows);
+            });
+        });
+
+        if (rows.length !== 0) {
+            return res.render('signup',{csrfToken: req.csrfToken(),msg: `Username ${username} already exists`});
+        }
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).send('Internal server error');
+    }
+
     const query = `INSERT INTO Users (username, password) VALUES (?,?)`;
     db.run(query, [username, password],
     function (error){
