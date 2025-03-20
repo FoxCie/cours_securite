@@ -1,0 +1,12 @@
+<div style="display: flex; margin: auto; text-align: center; justify-content: center;">
+    <p>
+        <a href="/signup">Inscription</a>
+        | <a href="/login">Login</a>
+        <% if (typeof user !== 'undefined' && user) { %> 
+        | <a href="/notes">Mes notes</a> 
+        | <a href="/validate">Valider le challenge</a>
+        <% } %>
+    </p>
+</div>
+
+<hr class="mgb-2">

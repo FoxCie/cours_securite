@@ -1,0 +1,28 @@
+<%- include('inc/header') %>
+<%- include('inc/navbar') %>
+
+<div class="container w-100">
+    <h1 class="h1 text-center w-100">Créer une note</h1>
+    <div class="col-md-4 offset-4">
+        <form action="/notes" method="post">
+            <label class="form-label" for="note">Note:</label>
+            <textarea class="form-control" type="text" id="note" name="note"></textarea>
+            <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+            <button type="submit" class="btn btn-primary my-2">Créer une note</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="container w-100 my-4">
+    <h1 class="h1 text-center w-100">Mes notes</h1>
+    <% notes.forEach(function(note) { %>
+        <div class="row w-100">
+            <div class="col-4 offset-4">
+                #<%= note.id %>: <%= note.content %>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<%- include('inc/footer') %>

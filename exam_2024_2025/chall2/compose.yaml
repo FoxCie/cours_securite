@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - 5151:5000
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./flaskr
+          target: /app/flaskr
+          ignore: 
+            - templates
+        - action: sync
+          path: ./flaskr/templates
+          target: /app/flaskr/templates

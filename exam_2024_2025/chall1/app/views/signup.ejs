@@ -1,0 +1,28 @@
+<%- include('inc/header') %>
+<%- include('inc/navbar') %>
+
+<div class="container w-100 align-items-center" style="height: 90vh;">
+    <div class="d-flex align-items-center h-75">
+        <div class="col-md-4 offset-4">
+            <form action="/signup" method="post">
+                <label class="form-label" for="username">Username:</label>
+                <input class="form-control" type="text" id="username" name="username">
+                <br>
+                <label class="form-label" for="password">Password:</label>
+                <input class="form-control" type="password" id="password" name="password">
+                <br>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input class="btn btn-primary" type="submit" value="Signup">
+            </form>
+
+            <p>
+                Already have an account?
+                <a href="/login">Login here</a>
+            </p>
+            <% if (msg) { %>
+                <p><%= msg %></p>
+            <% } %>
+        </div>
+    </div>
+</div>
+<%- include('inc/footer') %>
