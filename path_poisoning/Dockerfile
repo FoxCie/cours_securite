@@ -1,6 +1,6 @@
 FROM debian AS my_insecure_app
 
-RUN adduser user
+RUN useradd user
 
 RUN apt update && apt install build-essential make -y
 
