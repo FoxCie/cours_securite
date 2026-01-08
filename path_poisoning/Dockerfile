@@ -1,6 +1,6 @@
 FROM debian AS my_insecure_app
 
-RUN useradd user
+RUN useradd -m user
 
 RUN apt update && apt install build-essential make -y
 
@@ -8,14 +8,14 @@ USER user
 
 WORKDIR /home/user
 
-COPY test.c .
+COPY test.c pwn.c
 
-RUN make test
+RUN make pwn
 
 USER root
 
-RUN chown root test
-RUN chmod ug+s test
+RUN chown root pwn
+RUN chmod ug+s pwn
 
 USER user
 
