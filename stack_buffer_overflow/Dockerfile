@@ -1,6 +1,6 @@
-FROM alpine AS bof
+FROM ubuntu AS bof
 
-RUN apk add build-base make
+RUN apt update && apt install -y build-essential make bash
 
 RUN adduser user --disabled-password
 
@@ -10,7 +10,7 @@ WORKDIR /home/user
 
 COPY program.c  .
 
-RUN make program
+RUN make CFLAGS="-fno-stack-protector -fno-PIE -no-pie -fno-PIC" program
 
 USER root
 RUN echo "Well played, you win!" > /root/flag.txt
@@ -23,5 +23,5 @@ RUN chmod ug=rw /root/flag.txt
 
 USER user
 
-CMD ["/bin/sh", "-c", "while true; do sleep 3600; done"]
+CMD ["/bin/bash", "-c", "while true; do sleep 3600; done"]
 
